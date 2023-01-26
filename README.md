@@ -1,11 +1,11 @@
 # League of Legends Analysis
 
-**League of Legends** is one of the most popular videos games in the world. Developed and published in 2009 by Riot Games, League of Legends is a free Multiplayer Online Battle Arena game. In the game, two teams (blue and red) face off against one another, with the main objective being to destroy the opposing team's base, known as the Nexus. League of Legends players regularly employ in-game strategies and tactics in hopes of increasing their chances of winning. As a result, the goal of this analysis will be to identify the factor that has the largest correlation to winning a match. 
+**League of Legends** is one of the most popular videos games in the world. Developed and published in 2009 by Riot Games, League of Legends is a free Multiplayer Online Battle Arena game. In the game, two teams (blue and red) face off against one another, with the main objective being to destroy the opposing team's base, known as the Nexus. Due to the competitive nature of the game, League of Legends players regularly employ in-game strategies and tactics in hopes of increasing their chances of winning. As a result, the goal of this analysis will be to identify the factor that has the largest correlation to winning a match. The results of this analysis can potentially help beginners identitfy which factor(s) of the game they should prioritize in order to give themselves a better chance of winning.
 
 The dataset used to perform this analysis was downloaded from [Kaggle](https://www.kaggle.com/datasets/bobbyscience/league-of-legends-diamond-ranked-games-10-min).
 
 ## Initial Analysis
-The first step in my analysis was to isolate the statistics for the blue team. The reason behind this decision was because I wanted to focus on the factors that players in the blue team had control over. The next step involved using the `scikit-learn` Python library to perform a multivariable linear regression. This yielded the following output. 
+Since the dataset contains a column for `blueWins`, the first step in my analysis was to isolate the statistics for the blue team. The reason behind this decision was because I wanted to focus on the factors that players in the blue team had control over. My next step involved using the `scikit-learn` Python library to perform a multivariable linear regression. This yielded the following output: 
 ```
 blueWardsPlaced : -0.00034470
 blueWardsDestroyed : 0.00049023
@@ -31,7 +31,7 @@ blueGoldPerMin : 0.00000388
 Accuracy:  0.2781881699438524
 ```
 
-A problem that I noticed with this regression was that the accuracy of the model was very low, with a score of roughly 28%. In response, I tried using the `statsmodels` library to run a regression. However, this model also yielded a 28% coefficient of determination (as seen below), which signified that something was wrong. 
+A problem that I noticed with this regression was that the accuracy of the model was very low, with a score of roughly 28%. In response, I used the `statsmodels` library to run another regression with the purpose of obtaining another sample. This model also yielded a 28% coefficient of determination (as seen below), which signified that something was wrong. 
 
 ```
                             OLS Regression Results                            
@@ -79,7 +79,7 @@ Kurtosis:                       1.903   Cond. No.                     1.47e+20
 ## Finding a Solution
 From here, I tried various strategies in hopes of increasing the coefficient of determination. The first thing I did was narrow down the factors by eliminating those that might have had a high degree of collinearity with another factor; this included `blueGoldPerMin`, `blueCSPerMin`, `blueExperienceDiff`, and `blueGoldDiff`. Nonetheless, I still was not able to obtain the result that I was looking for, as the coefficient of determination did not budge. 
 
-At this point, knowing that the blueWins data was binary, I decided that it would be more appropriate if I used the scikit-learn library to run a multi-class logistic regression on the remaining factors; this yielded the following coefficients. 
+At this point, knowing that the `blueWins` data was binary, I decided that it would be more appropriate if I used the `scikit-learn` library to run a multi-class logistic regression on the remaining factors; this yielded the following coefficients: 
 ```
 blueWardsPlaced  :  -0.0021983962913219063
 blueWardsDestroyed  :  -0.00565297385525353
@@ -102,12 +102,12 @@ Accuracy:  0.7226720647773279
 ```
 The accuracy of this model was roughly 72%, a significant jump from the accuracies of the previous regression models. From this point onwards, any strategy that I tried would simply decrease the accuracy of the model. 
 ## Conclusion
-Based on the output above, since the `blueKills` factor has the largest coefficient, my conclusion is that the factor with the largest corelation to winning a game in League of Legends is the **number of enemies killed by a team**. 
+Based on the output above, since the `blueKills` factor has the largest positive coefficient, my conclusion is that the factor with the largest corelation to winning a game in League of Legends is the **number of enemies killed by a team**. 
 
 <br/>
 
 ## Data Visualizations
-### Regressions Between Factors
+### Average Level vs. Number of Kills AND Number of Deaths vs. Number of Kills
 ![Regressions between variables](https://github.com/Kevinl0378/league-of-legends-analysis/blob/main/Regressions%20between%20variables.png)
 
 ### Individual Logistic Regressions 
