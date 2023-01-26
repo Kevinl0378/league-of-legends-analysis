@@ -21,8 +21,6 @@ print(blue_stats)
 
 
 #Method 1: Normal Multivariable Regression
-
-
 independent_var = blue_stats[1:]
 indep_var_stats = df_blue[independent_var]
 # independent_var = ['blueWardsPlaced', 'blueWardsDestroyed', 'blueFirstBlood', 'blueKills', 'blueDeaths', 
@@ -86,12 +84,9 @@ predictions = model.predict(indep_var_stats)
 print_model = model.summary()
 #print(print_model)
 
-# The factor with the largest correlation to winning the game is: blueDragons, with a coefficient of 0.062078986232285
-
 
 
 #Method 2: Eliminating Factors (added `_cleaned` to all variable names)
-
 independent_var_cleaned = blue_stats[1:-4]   
 indep_var_stats_cleaned = df[independent_var_cleaned]
 
@@ -118,7 +113,7 @@ x_train, x_test, y_train, y_test = train_test_split(df_logistic.drop('blueWins',
 LogReg = LogisticRegression(solver='lbfgs', max_iter=1000)
 LogReg.fit(x_train, y_train)
 coefficients_logistic = LogReg.coef_
-print(LogReg.score(x_test, y_test))
+print("Accuracy: ", LogReg.score(x_test, y_test))
 
 var_coefficients_logit = {}
 for num, var in enumerate(blue_stats[1:-4]):
@@ -126,28 +121,14 @@ for num, var in enumerate(blue_stats[1:-4]):
 for key, value in var_coefficients_logit.items():
     print(key, " : ", value)
 
-'''
-#sns.regplot(x=x_train, y=y_train, data=df_logistic) 
-print(x_train)
-x_train_list = x_train.values.tolist()
-print(x_train_list[0]) 
-print(x_train.shape)
+    
 
-plt.imshow(np.reshape(x_train_list[15], (15, 1, 1)))
-plt.show()
-#plt.matshow(x_train_list.images[67])
+# Data Visualizations
 
-#log_reg = sm.Logit(y_train, x_train).fit()
-#print(log_reg.summary())
-'''
 df_blueKills = df['blueKills']
 df_blueDeaths = df['blueDeaths']
-'''
-fig, ax = plt.subplots()
-plt.scatter(df_blueKills, df['blueAvgLevel'])
-plt.scatter(df_blueKills, df_blueDeaths)
-plt.show()
-'''
+
+
 '''
 fig, ax = plt.subplots(figsize=(7,7))
 g = sns.regplot(x=df_blueKills, y=df['blueAvgLevel'], ax=ax, label = 'Average Level', color = 'turquoise')
@@ -163,8 +144,9 @@ fig.legend()
 plt.show()
 '''
 
-fig, ax = plt.subplots(figsize=(10, 7))
 
+'''
+fig, ax = plt.subplots(figsize=(10, 7))
 sns.regplot(df, x = df_blueDeaths, y = df['blueWins'], logistic = True, label = 'Deaths', color = 'black')
 sns.regplot(df, x = df['blueAssists'], y = df['blueWins'], logistic = True, label = 'Assists', color = 'gold')
 sns.regplot(df, x = df_blueKills, y = df['blueWins'], logistic = True, label = 'Kills', color = 'red')
@@ -172,3 +154,4 @@ sns.regplot(df, x = df['blueAvgLevel'], y = df['blueWins'], logistic = True, lab
 ax.set(ylabel='Probability of Winning', xlabel='Number of (Deaths/Assists/Kills/Levels)')
 ax.legend()
 plt.show()
+'''
