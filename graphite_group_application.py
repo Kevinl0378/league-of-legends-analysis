@@ -148,25 +148,27 @@ plt.scatter(df_blueKills, df['blueAvgLevel'])
 plt.scatter(df_blueKills, df_blueDeaths)
 plt.show()
 '''
+'''
 fig, ax = plt.subplots(figsize=(7,7))
-g = sns.regplot(x=df_blueKills, y=df['blueAvgLevel'], ax=ax, label = 'blueAvgLevel', color = 'turquoise')
+g = sns.regplot(x=df_blueKills, y=df['blueAvgLevel'], ax=ax, label = 'Average Level', color = 'turquoise')
 ax2 = ax.twinx()
-f = sns.regplot(x=df_blueKills, y=df_blueDeaths, ax=ax2, label = 'blueDeaths', color = 'gold')
+f = sns.regplot(x=df_blueKills, y=df_blueDeaths, ax=ax2, label = 'Number of Deaths', color = 'gold')
 plt.setp(g.collections, alpha=.3)
 plt.setp(g.lines, alpha=.3) 
 plt.setp(f.collections, alpha=.3)
 plt.setp(f.lines, alpha=.3)   
+ax.set(xlabel = "Number of Kills", ylabel = 'Average Level')
+ax2.set(ylabel = 'Number of Deaths')
 fig.legend()
 plt.show()
-
 '''
+
 fig, ax = plt.subplots(figsize=(10, 7))
 
-sns.regplot(df, x = df_blueDeaths, y = df['blueWins'], logistic = True, label = 'blueDeaths', color = 'black')
-sns.regplot(df, x = df['blueAssists'], y = df['blueWins'], logistic = True, label = 'blueAssists', color = 'gold')
-sns.regplot(df, x = df_blueKills, y = df['blueWins'], logistic = True, label = 'blueKills', color = 'red')
-sns.regplot(df, x = df['blueAvgLevel'], y = df['blueWins'], logistic = True, label = 'blueAvgLevel', color = 'turquoise')
-ax.set(ylabel='blueWins', xlabel='')
+sns.regplot(df, x = df_blueDeaths, y = df['blueWins'], logistic = True, label = 'Deaths', color = 'black')
+sns.regplot(df, x = df['blueAssists'], y = df['blueWins'], logistic = True, label = 'Assists', color = 'gold')
+sns.regplot(df, x = df_blueKills, y = df['blueWins'], logistic = True, label = 'Kills', color = 'red')
+sns.regplot(df, x = df['blueAvgLevel'], y = df['blueWins'], logistic = True, label = 'Average Level', color = 'turquoise')
+ax.set(ylabel='Probability of Winning', xlabel='Number of (Deaths/Assists/Kills/Levels)')
 ax.legend()
 plt.show()
-'''
