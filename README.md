@@ -102,7 +102,7 @@ Accuracy:  0.7226720647773279
 ```
 The accuracy of this model was roughly 72%, a significant jump from the accuracies of the previous regression models. From this point onwards, any strategy that I tried would simply decrease the accuracy of the model. 
 ## Conclusion
-Based on the output above, since the `blueKills` factor has the largest positive coefficient, my conclusion is that the factor with the largest corelation to winning a game in League of Legends is the **number of enemies killed by a team**. 
+Based on the output above, since the `blueKills` factor has the largest positive coefficient, my conclusion is that the factor with the largest correlation to winning a game in League of Legends is the **number of enemies killed by a team**. 
 
 <br/>
 
